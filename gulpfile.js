@@ -1,8 +1,8 @@
 var gulp = require('gulp'),
-    // less = require('gulp-less'),
-    // lessPluginCleanCSS = require('less-plugin-clean-css'),
-    // cleancss = new lessPluginCleanCSS({advanced: true}),
-    // autoprefixer = require('gulp-autoprefixer'),
+    less = require('gulp-less'),
+    LessPluginCleanCSS = require('less-plugin-clean-css'),
+    cleancss = new LessPluginCleanCSS({advanced: true}),
+    autoprefixer = require('gulp-autoprefixer'),
     // minifycss = require('gulp-minify-css'),
     // // // eslint = require('gulp-eslint'),
     // jshint = require('gulp-jshint'),
@@ -28,12 +28,12 @@ var gulp = require('gulp'),
 
 
 // gulp.task('default', ['watch']);
-// // watch
-// gulp.task('watch', function () {
+// watch
+gulp.task('watch', function () {
 // //    gulp.watch('src/scripts/app.ts', ['compileTs']);
-//    gulp.watch('src/styles/*.less', ['styles']);
+   gulp.watch('src/styles/*.less', ['styles']);
 //    gulp.watch('build/scripts/*.js', ['moveTest']);
-// });
+});
 
 // build
 gulp.task('build', [`clean`], function () {
@@ -44,15 +44,15 @@ gulp.task('build', [`clean`], function () {
 
 
    
-// // styles
-// gulp.task('styles', function () {
-// 	gulp.src('src/styles/*.less')
-// 		.pipe(less({plugins: [cleancss]}).on('error', function (err) {
-// 			console.dir(err);
-// 		}))
-// 		.pipe(autoprefixer({browsers: ['last 2 versions']}))
-// 		.pipe(gulp.dest('build/styles'));		
-// }); 
+// styles
+gulp.task('styles', function () {
+	gulp.src('src/styles/*.less')
+		.pipe(less({plugins: [cleancss]}).on('error', function (err) {
+			console.dir(err);
+		}))
+		.pipe(autoprefixer({browsers: ['last 2 Chrome versions']}))
+		.pipe(gulp.dest('build/styles'));		
+}); 
 
 // // remove test from build
 // gulp.task('cleanTest', ['moveTest'], function () {

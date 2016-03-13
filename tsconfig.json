@@ -1,0 +1,13 @@
+{
+    "compilerOptions":
+    {
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "target": "es5"
+    },
+    "exclude": [
+        "node_modules",
+        "build",
+        "tests"
+    ]
+}

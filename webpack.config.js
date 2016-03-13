@@ -8,8 +8,8 @@ console.log('development' ? "source-map" : null);
 
 module.exports = {
     entry: {
-        app: "./src/scripts/app.ts",
-        test: "./src/test-specs/root_specs.ts"
+        popup: "./src/scripts/popup.ts",
+        event: "./src/scripts/event.ts"
     },
     output: {
         path: __dirname + '/build/scripts',
@@ -20,11 +20,11 @@ module.exports = {
         extensions: ['', '.webpack.js', '.web.js', '.ts', '.js', '.tsx', '.jsx', '.html']
     },
     watch: NODE_ENV === 'development',
-    devtool: NODE_ENV === 'development' ? "source-map" : null,
+    devtool: null,
     module: {
         loaders: [
-            { test: /\.js$/, loader: 'babel-loader' },
-            { test: /\.tsx?$/, loader: 'babel!ts-loader' }
+            { test: /\.js?$/, loader: 'babel-loader' },
+            { test: /\.ts?$/, loader: 'babel!ts-loader' }
         ]
     },
     plugins: NODE_ENV === 'development' ? [] : [
