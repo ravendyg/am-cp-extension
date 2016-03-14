@@ -9,13 +9,13 @@ var oldUrl: string = ``;
 function leaveAmazon () {
 console.log(`leave`);
     oldUrl = ``;
+    // show empty popup
     chrome.runtime.sendMessage({
-        action: `hide popup`, timestamp: Date.now()
+        action: `hide popup`
     });
     // remove badge
     chrome.browserAction.setBadgeText({text: ''});
-    chrome.browserAction.setPopup({popup: `./html/default-popup.html`});
-    
+    chrome.browserAction.setPopup({popup: `./html/default-popup.html`});   
 }
 
 function enterAmazon() {
@@ -33,7 +33,7 @@ function enterAmazon() {
                 chrome.runtime.onMessage.addListener( function(message, sender) {
                     if (message.action === `popup online`) {
                         chrome.runtime.sendMessage({
-                            action: `show popup`, timestamp: Date.now(), data: data
+                            action: `show popup`, data: data
                         });
                     }
                 });
@@ -46,20 +46,14 @@ function enterAmazon() {
             }
         })
         .on(`40x`, (resp) => {
-            // chrome.runtime.sendMessage({
-            //     action: `40x popup`, timestamp: Date.now()
-            // });
         })
         .on(`50x`, (resp) => {
-            // chrome.runtime.sendMessage({
-            //     action: `50x popup`, timestamp: Date.now()
-            // });
         })
         .go();
 }
 
+// check whether we are entering or leaving amazon web site
 function checkUrl (newUrl: string) {
-console.log(`checking ${newUrl}`);
     if (newUrl.match(/www.amazon./) && oldUrl !== `amazon`) {
         enterAmazon();
     } else if (!newUrl.match(/www.amazon./) && oldUrl === `amazon`) {
@@ -67,16 +61,15 @@ console.log(`checking ${newUrl}`);
     }
 }
 
+// tab event processors
 function update (tabId: number, changeInfo: any) {
     if (changeInfo.url) {
         tabsHistory[tabId] = changeInfo.url;
-        checkUrl(changeInfo.url);
-        // console.log(tabId, tabs[tabId]);
+        checkUrl(changeInfo.url);;
     }    
 }
 
 function activate (activeInfo: any) {
-    // console.log(activeInfo.tabId, tabsHistory);
     if (tabsHistory[activeInfo.tabId]) {
         checkUrl(tabsHistory[activeInfo.tabId]);
     }

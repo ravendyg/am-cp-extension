@@ -1,3 +1,5 @@
+// Aja
+
 declare type AjaType = () => IAja;
 interface IAja {
     method: (type: string) => IAja;
@@ -11,6 +13,7 @@ interface IAja {
 }
 
 
+// Chrome
 
 interface IChrome {
     tabs: IChromeTab;
@@ -26,6 +29,7 @@ interface IChromeTab {
     onMoved: IChromeEvent;
     query: (options: ChromeTabQueryOptionsType, cb: (tabs: IChromeTab []) => void) => void;
     url: string;
+    create: (options: {url: string}) => void;
 }
 interface IChromeEvent {
     addListener: (callback: (tabId: number, changeInfo: any) => void ) => void;

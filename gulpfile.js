@@ -67,7 +67,9 @@ gulp.task('styles', function () {
 
 // images
 gulp.task('imagemin', function () {
-   return gulp.src('src/img/*')
+    gulp.src(`src/img/*.svg`)
+        .pipe(gulp.dest(`build/img`));
+    return gulp.src('src/img/*')
         .pipe(cache(imagemin({optimizationLevel: 3, progressive: true, interlaced: true})))
         .pipe(gulp.dest('build/img')); 
 });

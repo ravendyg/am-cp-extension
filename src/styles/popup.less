@@ -1,8 +1,12 @@
-@lightGray1: #f3f3f3;
-@lightGray2: #a3a3a3;
+@lightGray05: #f4f4f4;
+@lightGray10: #f3f3f3;
+@lightGray15: #f0f0f0;
+@lightGray20: rgba(200,200,200,0.5);
+@white: white;
 
 body {
-    background-color: @lightGray1;
+    background-color: @lightGray05;
+    margin: 0;
 }
 
 .flex-container-row {
@@ -24,6 +28,9 @@ body {
     align-content: flex-start;
     align-items: flex-start;
     width: 400px;
+    height: 80px;
+    position: fixed;
+    background-color: @lightGray15;
     img {
         .flex-item-default;
         max-width: 60px;
@@ -42,11 +49,36 @@ body {
         margin: 4%;
         padding-top: 15px;
         padding-bottom: 15px;
-        background-color: white;    
+        background-color: @white;    
         box-shadow: 0 0 5px rgba(0,0,0,0.5);    
         font-size: 1.5em;
-        color: @lightGray2;
+        color: @lightGray20;
     }
+}
+#content {
+    width: 400px;
+    padding-top: 80px;
+}
+.row-item {
+    background: white url('../img/arrow.png') no-repeat 97% center;
+    border: 1px solid @lightGray20;
+    margin: 10px;
+    a {
+        text-decoration: none;
+        color: black;
+        .item-text {
+            font-size: 2em;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin: 15px 0 15px 15px;
+            padding: 0 40px 0 0;
+            span {
+                height: 2em;
+            }
+        }
+    }   
 }
 
 .title {
@@ -56,5 +88,5 @@ body {
 .subtitle {
     margin: 0;
     font-size: 1em;
-    color: @lightGray2;
+    color: @lightGray20;
 }
