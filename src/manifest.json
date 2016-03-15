@@ -19,6 +19,6 @@
   "permissions": [
     "activeTab",
     "tabs",
-    "http://codebears.com/releases/"
+    "http://codebears.com/releases/deales.json"
   ]
 }

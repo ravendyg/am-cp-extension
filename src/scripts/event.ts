@@ -22,13 +22,9 @@ function enterAmazon() {
     oldUrl = `amazon`;
     aja()
         .method(`GET`)
-        .url(`http://localhost:8080`)
-        // .header(`Origin`, ``)
-        .on(`200`, (resp) => {
-            if (resp.text && oldUrl === `amazon`) {
-                // got data and user hasn't changed the page
-                var data = JSON.parse(resp.text);
-
+        .url(`http://codebears.com/releases/deals.json`)
+        .on(`200`, (data) => {
+            if (data && oldUrl === `amazon`) {
                 // get ready for popup message
                 chrome.runtime.onMessage.addListener( function(message, sender) {
                     if (message.action === `popup online`) {
@@ -37,17 +33,21 @@ function enterAmazon() {
                         });
                     }
                 });
+                                
+                // initialize popup
+                chrome.browserAction.setPopup({popup: `./html/data-popup.html`});
                 
                 // show badge
-                chrome.browserAction.setBadgeText({text: ''+data.length}); 
-                
-                // initialize popup
-                chrome.browserAction.setPopup({popup: `./html/data-popup.html`});        
+                chrome.browserAction.setBadgeText({text: ''+data.length});        
             }
         })
         .on(`40x`, (resp) => {
+            // show badge, but don't change the popup
+            chrome.browserAction.setBadgeText({text: `0`}); 
         })
         .on(`50x`, (resp) => {
+            // show badge, but don't change the popup
+            chrome.browserAction.setBadgeText({text: `0`});
         })
         .go();
 }
