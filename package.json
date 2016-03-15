@@ -2,7 +2,7 @@
   "name": "test-chrome-extension",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,7 +13,6 @@
     "babel-core": "^6.7.2",
     "babel-loader": "^6.2.4",
     "del": "^2.2.0",
-    "dot": "^1.0.3",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-cache": "^0.4.2",
