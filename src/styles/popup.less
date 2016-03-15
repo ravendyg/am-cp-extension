@@ -2,6 +2,8 @@
 @lightGray10: #f3f3f3;
 @lightGray15: #f0f0f0;
 @lightGray20: rgba(200,200,200,0.5);
+@blueA400: #2979ff;
+@deepOrange800: #E64A19;
 @white: white;
 
 body {
@@ -77,11 +79,25 @@ body {
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            margin: 15px 0 15px 15px;
+            margin: 15px 0 10px 15px;
             padding: 0 40px 0 0;
             span {
                 height: 2em;
             }
+        }
+        .item-type {
+            display: -webkit-box;
+            margin: 0 0 15px 15px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .item-type-sale {
+            .item-type;
+            color: @blueA400;
+        }
+        .item-type-coupon {
+            .item-type;
+            color: @deepOrange800;
         }
     }   
 }

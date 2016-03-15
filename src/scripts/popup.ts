@@ -28,9 +28,10 @@ document.addEventListener(`DOMContentLoaded`, () => {
             // create list
             popup.innerHTML = message.data.reduce( (pv, cv, i) => {
                 return pv + dataElementTemplate
-                            .replace(/{{link}}/, cv.url)
-                            .replace(/{{description}}/, cv.description)
-                            .replace(/{{title}}/, cv.title);
+                            .replace(/{{link}}/g, cv.url)
+                            .replace(/{{description}}/g, cv.description)
+                            .replace(/{{title}}/g, cv.title)
+                            .replace(/{{type}}/g, cv.type);
             }, ``);
             // link processing
             document.addEventListener(`click`, openLink);
