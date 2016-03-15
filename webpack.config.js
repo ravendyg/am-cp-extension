@@ -4,7 +4,7 @@
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 
-console.log('development' ? "source-map" : null);
+console.log(NODE_ENV === 'development' ? "source-map" : null);
 
 module.exports = {
     entry: {
@@ -28,24 +28,24 @@ module.exports = {
         ]
     },
     plugins: NODE_ENV === 'development' ? [] : [
-    //     new webpack.DefinePlugin({
-    //         'process.env': {
-    //         'NODE_ENV': JSON.stringify('production')
-    //         }
-    //     }),
-    //     new webpack.optimize.DedupePlugin(),
-    //     new webpack.optimize.OccurenceOrderPlugin(),
-    //     new webpack.optimize.UglifyJsPlugin({
-    //         mangle: true,
-    //         sourcemap: false,
-    //         compress: {
-    //             warnings: false,
-    //             dead_code: true,
-    //             drop_debugger: true,
-    //             conditionals: true,
-    //             unused: true,
-    //             drop_console: true
-    //         }            
-    //     }),
+        new webpack.DefinePlugin({
+            'process.env': {
+            'NODE_ENV': JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            mangle: true,
+            sourcemap: false,
+            compress: {
+                warnings: false,
+                dead_code: true,
+                drop_debugger: true,
+                conditionals: true,
+                unused: true,
+                drop_console: true
+            }            
+        }),
     ]
 }
