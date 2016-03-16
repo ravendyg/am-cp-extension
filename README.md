@@ -31,4 +31,4 @@ for development (source-map, not minified)
 tested Debian 8, Chrome 48; Win 7, Chrome 49
 
 ## Issues
-On Debian after cloning the repo gulp-imagemin produced no output or error. Didn't happen on Win7. Bug dissappeared after dependencied reinstalling.
+On Debian after cloning the repo gulp-imagemin produced no output or error. Didn't happen on Win7. Bug dissappeared after dependencies reinstalling.
