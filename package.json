@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "",
   "main": "webpack.config.js",
+  "repository" : {
+      "type" : "git",
+      "url" : "https://github.com/ravendyg/am-cp-extension/"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
