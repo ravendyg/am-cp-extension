@@ -14,7 +14,7 @@ gulp.task('watch', function () {
 
 // build
 gulp.task('build', [`clean`], function () {
-    gulp.start('copy', 'usemin', 'imagemin');
+    gulp.start('copy', 'usemin', 'imagemin', 'styles');
 });
    
 // styles
@@ -29,10 +29,8 @@ gulp.task('styles', function () {
 
 // images
 gulp.task('imagemin', function () {
-    gulp.src(`src/img/*.svg`)
-        .pipe(gulp.dest(`build/img`));
     return gulp.src('src/img/*')
-        .pipe(cache(imagemin({optimizationLevel: 3, progressive: true, interlaced: true})))
+        // .pipe(cache(imagemin({optimizationLevel: 3, progressive: true, interlaced: true}))) // wtf?
         .pipe(gulp.dest('build/img')); 
 });
 
