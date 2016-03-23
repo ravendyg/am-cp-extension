@@ -3,19 +3,21 @@
 
 const aja: AjaType = require('aja');
 
-var tabsHistory: any = {};
 var oldUrl: string = ``;
 
+// remove badge
+function removeBadge () {
+    chrome.browserAction.setBadgeText({text: ''});
+    chrome.browserAction.setPopup({popup: `./html/default-popup.html`});
+}
+
 function leaveAmazon () {
-console.log(`leave`);
     oldUrl = ``;
     // show empty popup
     chrome.runtime.sendMessage({
         action: `hide popup`
-    });
-    // remove badge
-    chrome.browserAction.setBadgeText({text: ''});
-    chrome.browserAction.setPopup({popup: `./html/default-popup.html`});   
+    });      
+    removeBadge();
 }
 
 function enterAmazon() {
@@ -53,12 +55,10 @@ function enterAmazon() {
             }
         })
         .on(`40x`, (resp) => {
-            // show badge, but don't change the popup
-            chrome.browserAction.setBadgeText({text: `0`}); 
+            removeBadge();
         })
         .on(`50x`, (resp) => {
-            // show badge, but don't change the popup
-            chrome.browserAction.setBadgeText({text: `0`});
+            removeBadge();
         })
         .go();
 }
@@ -75,31 +75,22 @@ function checkUrl (newUrl: string) {
 // tab event processors
 function update (tabId: number, changeInfo: any) {
     if (changeInfo.url) {
-        tabsHistory[tabId] = changeInfo.url;
-        checkUrl(changeInfo.url);;
+        checkUrl(changeInfo.url);
     }    
 }
 
-function activate (activeInfo: any) {
-    if (tabsHistory[activeInfo.tabId]) {
-        checkUrl(tabsHistory[activeInfo.tabId]);
-    }
-}
-
-function removeTab (tabId: number) {
-    delete tabsHistory[tabId];
-}
-
-function replace (addedTab: number, removedTab: number) {
-    // for some reasons not yet clear some pages (like ngs.ru), sometimes trigger replace instead of update
-    delete tabsHistory[removedTab];
+function activate () {
     chrome.tabs.query({active: true, lastFocusedWindow: true}, function(tabs) {
-        tabsHistory[addedTab] = tabs[0].url;
+        checkUrl(tabs[0].url);
+    });
+}
+
+function replace () {
+    chrome.tabs.query({active: true, lastFocusedWindow: true}, function(tabs) {
         checkUrl(tabs[0].url);
     });
 }
 
 chrome.tabs.onUpdated.addListener(update);
 chrome.tabs.onActivated.addListener(activate);
-chrome.tabs.onRemoved.addListener(removeTab);
 chrome.tabs.onReplaced.addListener(replace);
