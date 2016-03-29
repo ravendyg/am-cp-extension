@@ -16,21 +16,23 @@ interface IAja {
 // Chrome
 
 interface IChrome {
-    tabs: IChromeTab;
+    tabs: IChromeTabs;
     runtime: IChromeRuntime;
     browserAction: IChromeActions;
 }
-interface IChromeTab {
+interface IChromeTabs {
     onCreated: IChromeEvent;
     onUpdated: IChromeEvent;
     onActivated: IChromeEvent;
     onRemoved: IChromeEvent;
     onReplaced: IChromeEvent;
     onMoved: IChromeEvent;
-    query: (options: ChromeTabQueryOptionsType, cb: (tabs: IChromeTab []) => void) => void;
+    query: (options: ChromeTabQueryOptionsType, cb: (tabs: IChromeTabs []) => void) => void;
     url: string;
     create: (options: {url: string}) => void;
+    tab: ChromeTabType;
 }
+declare type ChromeTabType = any; 
 interface IChromeEvent {
     addListener: (callback: (tabId: number, changeInfo: any) => void ) => void;
 }
@@ -39,8 +41,25 @@ interface IChromeRuntime {
     onMessage: IChromeRuntimeMessage;
 }
 interface IChromeActions {
-    setBadgeText: (details: {text: string, tabId?: number}) => void;
+    setTitle: (details: {title: string, tabId?: number}) => void;
+    getTitle: (details: {tabId?: number}, cb: (result: string) => void) => void;
+    setIcon (details: {imageData?: Uint8ClampedArray, path?: string, tabId?: number}, cb: () => void): void;
+    setIcon (details: {imageData?: any, path?: string, tabId?: number}, cb: () => void): void;
+    setIcon (details: {imageData?: Uint8ClampedArray, path?: any, tabId?: number}, cb: () => void): void;
+    setIcon (details: {imageData?: any, path?: any, tabId?: number}, cb: () => void): void;
     setPopup: (details: {tabId?: number, popup: string}) => void;
+    getPopup: (details: {tabId?: number}, cb: (result: string) => void) => void;
+    setBadgeText: (details: {text: string, tabId?: number}) => void;
+    getBadgeText: (details: {tabId?: number}, cb: (result: string) => void) => void;
+    setBadgeBAckgroundColor (details: {color: string, tabId?: number}): void;
+    setBadgeBAckgroundColor (details: {colorArray: number [], tabId?: number}): void;
+    getBadgeBackgroundColor: (details: {tabId?: number}, cb: (colorArray: number []) => void) => void;
+    enable: (tabId?: number) => void;
+    disable: (tabId?: number) => void;
+    
+    onClicked: {
+        addListener: (cb: (tab: ChromeTabType) => void) => void;
+    }
 }
 interface IChromeRuntimeMessage {
     addListener: (callback:
@@ -56,3 +75,5 @@ declare type ChromeTabQueryOptionsType = {
     active?: boolean,
     lastFocusedWindow?: boolean
 } 
+
+declare type ImageDataType = any;
